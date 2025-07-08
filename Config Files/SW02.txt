@@ -1,0 +1,23 @@
+hostname SW02
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security violation protect 
+ spanning-tree portfast
+!
+interface FastEthernet0/2
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security violation protect 
+ spanning-tree portfast
+!

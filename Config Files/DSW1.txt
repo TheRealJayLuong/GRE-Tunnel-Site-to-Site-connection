@@ -1,0 +1,89 @@
+hostname DSW1
+!
+!
+!
+ip dhcp excluded-address 192.168.10.1
+ip dhcp excluded-address 192.168.10.2
+ip dhcp excluded-address 192.168.20.1
+ip dhcp excluded-address 192.168.20.2
+ip dhcp excluded-address 192.168.30.1
+ip dhcp excluded-address 192.168.30.2
+!
+ip dhcp pool VLAN_10
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.100
+ dns-server 8.8.8.8
+ip dhcp pool VLAN_20
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.100
+ dns-server 8.8.8.8
+ip dhcp pool VLAN_30
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.100
+ dns-server 8.8.8.8
+
+!
+ip routing
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/4
+ no switchport
+ ip address 10.10.10.1 255.255.255.252
+ duplex auto
+ speed auto
+
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 00e0.b021.6e01
+ ip address 192.168.10.1 255.255.255.0
+ standby 1 ip 192.168.10.100
+ standby 1 priority 110
+ standby 1 preempt
+!
+interface Vlan20
+ mac-address 00e0.b021.6e02
+ ip address 192.168.20.1 255.255.255.0
+ standby 1 ip 192.168.20.100
+ standby 1 priority 110
+ standby 1 preempt
+!
+interface Vlan30
+ mac-address 00e0.b021.6e03
+ ip address 192.168.30.1 255.255.255.0
+ standby 1 ip 192.168.30.100
+ standby 1 priority 110
+ standby 1 preempt
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+ network 192.168.30.0 0.0.0.255 area 0
+ network 10.10.10.0 0.0.0.3 area 0
+!
+ip classless
+!end

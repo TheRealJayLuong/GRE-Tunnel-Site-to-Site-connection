@@ -1,0 +1,36 @@
+hostname Switch03
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 40
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport access vlan 40
+ switchport mode access
+!
+interface FastEthernet0/3
+ switchport access vlan 40
+ switchport mode access
+!
+interface FastEthernet0/4
+ switchport access vlan 40
+ switchport mode access
+!
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan40
+ ip address 192.168.40.254 255.255.255.0
+!
+!
+!

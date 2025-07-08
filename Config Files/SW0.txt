@@ -1,0 +1,26 @@
+hostname SW0
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security violation protect 
+ switchport port-security mac-address 000D.BD84.2689
+ spanning-tree portfast
+!
+interface FastEthernet0/2
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security violation protect 
+ switchport port-security mac-address 0001.638C.D2E3
+ spanning-tree portfast
+!

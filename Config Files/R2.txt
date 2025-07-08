@@ -1,0 +1,60 @@
+hostname R2
+!
+!
+!
+!
+ip dhcp excluded-address 192.168.40.254
+!
+ip dhcp pool Server
+ network 192.168.40.0 255.255.255.0
+ default-router 192.168.40.254
+ dns-server 8.8.8.8
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ ip address 172.168.20.2 255.255.255.0
+ mtu 1476
+ tunnel source GigabitEthernet0/0
+ tunnel destination 100.1.1.1
+!
+!
+interface GigabitEthernet0/0
+ ip address 101.1.1.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 192.168.1.254 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.40
+ encapsulation dot1Q 40
+ ip address 192.168.40.254 255.255.255.0
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface GigabitEthernet0/2
+ network 192.168.40.0 0.0.0.255 area 0
+ network 172.168.20.0 0.0.0.255 area 0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 101.1.1.2 

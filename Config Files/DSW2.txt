@@ -1,0 +1,54 @@
+hostname DSW2
+!
+!
+ip routing
+!
+spanning-tree mode pvst
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk encapsulation dot1q
+ switchport mode dynamic desirable
+!
+interface FastEthernet0/4
+ no switchport
+ ip address 10.10.10.6 255.255.255.252
+ duplex auto
+ speed auto
+!
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 0090.2b58.cb01
+ ip address 192.168.10.2 255.255.255.0
+ standby 1 ip 192.168.10.100
+ standby 1 preempt
+!
+interface Vlan20
+ mac-address 0090.2b58.cb02
+ ip address 192.168.20.2 255.255.255.0
+ standby 1 ip 192.168.20.100
+ standby 1 preempt
+!
+interface Vlan30
+ mac-address 0090.2b58.cb03
+ ip address 192.168.30.2 255.255.255.0
+ standby 1 ip 192.168.30.100
+ standby 1 preempt
+!
+ip classless
+!
+end

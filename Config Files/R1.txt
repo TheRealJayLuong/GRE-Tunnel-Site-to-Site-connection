@@ -1,0 +1,85 @@
+Hostname R1
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ ip address 172.168.20.1 255.255.255.0
+ mtu 1476
+ tunnel source GigabitEthernet0/2
+ tunnel destination 101.1.1.1
+!
+!
+interface GigabitEthernet0/0
+ ip address 10.10.10.2 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 10.10.10.5 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ ip address 100.1.1.1 255.255.255.252
+ ip nat outside
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 000d.bd27.9e01
+ no ip address
+ ip nat inside
+!
+interface Vlan20
+ mac-address 000d.bd27.9e02
+ no ip address
+ ip nat inside
+!
+interface Vlan30
+ mac-address 000d.bd27.9e03
+ no ip address
+ ip nat inside
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface GigabitEthernet0/0
+ network 10.10.10.0 0.0.0.3 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+ network 192.168.30.0 0.0.0.255 area 0
+ network 172.168.20.0 0.0.0.255 area 0
+ default-information originate
+!
+ip nat inside source list 1 interface GigabitEthernet0/2 overload
+ip classless
+ip route 0.0.0.0 0.0.0.0 100.1.1.2 
+!
+ip flow-export version 9
+!
+!
+access-list 1 permit 192.168.10.0 0.0.0.255
+access-list 1 permit 192.168.20.0 0.0.0.255
+access-list 1 permit 192.168.30.0 0.0.0.255
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+end
