@@ -40,7 +40,7 @@ DTP: Enabled to dynamically negotiate trunk links between switches.
 
 HSRP
 
-SW (Active) and DSW (Standby) for VLANs 10, 20, and 30.
+DSW01 (Active) and DSW02 (Standby) for VLANs 10, 20, and 30.
 
 Each VLAN has its own virtual IP, facilitating seamless failover.
 
