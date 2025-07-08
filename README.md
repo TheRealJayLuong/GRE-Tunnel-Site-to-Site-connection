@@ -32,7 +32,7 @@ VLAN Purpose	Subnet	Color-Coded Devices
 
 40	Infrastructure	192.168.40.0/24	Switch MGMT
 
-VTP Domain: VLANs centrally managed across switches using VTP (likely VTP Server on SW and Client on DSW).
+VTP Domain: VLANs centrally managed across switches using VTP (likely VTP Server on DSW and Client on SW).
 
 DTP: Enabled to dynamically negotiate trunk links between switches.
 
